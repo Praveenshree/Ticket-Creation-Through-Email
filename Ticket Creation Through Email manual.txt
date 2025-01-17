@@ -1,0 +1,436 @@
+Ticket Creation Through Email
+
+Overview
+
+The Ticket Creation Through Email system is designed to automate the process of generating support tickets from classified emails. The system fetches emails from an inbox, classifies them based on pre-configured keywords, and then creates tickets that are managed through a dedicated interface. This model consists of four main modules:
+
+Master Activity - Manages activity attributes and defines hierarchical relationships.
+
+Keyword Config Master - Allows administrators to configure keywords for automated classification of emails.
+
+Mail Inbox - Fetches and displays incoming emails, filtering and classifying them based on keyword configurations.
+
+Tickets - Stores and manages support tickets, allowing users to edit, delete, and resolve them.
+
+How It Works
+
+Step 1: Email Classification
+
+The system connects to an email server using IMAP to fetch emails in real time.
+
+The Keyword Config Master contains predefined keywords used to classify emails.
+
+If an email's subject or content matches any stored keyword, it is classified as relevant.
+
+To prevent duplication, classified emails are stored in the classified_emails table with a unique identifier.
+
+Step 2: Ticket Creation
+
+Once an email is classified, a support ticket is generated automatically.
+
+The system assigns ticket attributes based on classification parameters, such as activity type and priority.
+
+The generated tickets are stored in the tickets table, ensuring each ticket has a unique reference.
+
+If an email with the same content has already been classified, the system avoids creating duplicate tickets.
+
+Step 3: Ticket Management
+
+The Tickets Module (tickets.php) provides a user-friendly interface to view, edit, and delete tickets.
+
+Tickets are displayed in a structured table format with pagination and filtering options.
+
+Users can manually adjust ticket attributes, including priority levels (low, medium, high).
+
+AJAX is used for real-time updates, ensuring a smooth user experience.
+
+Database Structure
+
+tickets Table
+
+Column
+
+Type
+
+Description
+
+ticket_oid
+
+INT (PK)
+
+Unique identifier for the ticket
+
+message_oid
+
+INT (Nullable)
+
+Related message ID from the email system
+
+activity_oid
+
+INT (Nullable)
+
+Stores Level 1 (Assign Attribute)
+
+activity_type_oid
+
+INT (Nullable)
+
+Stores Level 0 (Activity Type)
+
+activity_value_oid
+
+INT (Nullable)
+
+Stores Level 0 (Attribute Value)
+
+business_unit_oid
+
+INT (Nullable)
+
+Business unit reference for ticket tracking
+
+priority_oid
+
+INT (Nullable)
+
+Defines ticket urgency (low, medium, high)
+
+title
+
+VARCHAR(255)
+
+Subject line of the classified email
+
+classified_emails Table
+
+Column
+
+Type
+
+Description
+
+id
+
+INT (PK)
+
+Unique email record ID
+
+uid
+
+INT (Not Null)
+
+Unique email identifier
+
+subject
+
+VARCHAR(255)
+
+Subject of the classified email
+
+date_received
+
+DATETIME
+
+Timestamp of email reception
+
+from_email
+
+VARCHAR(255)
+
+Sender email address
+
+to_email
+
+TEXT
+
+List of recipient email addresses
+
+cc_email
+
+TEXT
+
+List of CC'd email addresses
+
+created_at
+
+TIMESTAMP
+
+Classification timestamp
+
+Key Functionalities
+
+Automated Ticket Generation: The system generates tickets automatically upon classifying relevant emails.
+
+Duplicate Prevention Mechanism: Ensures that emails already classified do not create duplicate tickets.
+
+Seamless UI with AJAX: Real-time updates and improved responsiveness using AJAX.
+
+DataTables Integration: Provides powerful search, sorting, and pagination features.
+
+Customizable Priority Management: Allows users to set and update ticket urgency levels.
+
+Security and Access Control (Future Scope): Plans to implement user authentication and role-based permissions.
+
+Technologies Used
+
+Backend: PHP (for handling database operations and business logic)
+
+Frontend: HTML, CSS, JavaScript, AJAX (for dynamic UI updates)
+
+Database: MySQL (for structured data storage and retrieval)
+
+Libraries & Tools: PHPMailer (for email communication), IMAP (for email retrieval), DataTables (for enhanced UI interactions)
+
+Installation and Setup
+
+Clone the repository:
+
+git clone httpsTicket Creation Through Email
+
+Overview
+
+The Ticket Creation Through Email system is designed to automate the process of generating support tickets from classified emails. The system fetches emails from an inbox, classifies them based on pre-configured keywords, and then creates tickets that are managed through a dedicated interface. This model consists of four main modules:
+
+Master Activity - Manages activity attributes and defines hierarchical relationships.
+
+Keyword Config Master - Allows administrators to configure keywords for automated classification of emails.
+
+Mail Inbox - Fetches and displays incoming emails, filtering and classifying them based on keyword configurations.
+
+Tickets - Stores and manages support tickets, allowing users to edit, delete, and resolve them.
+
+How It Works
+
+Step 1: Email Classification
+
+The system connects to an email server using IMAP to fetch emails in real time.
+
+The Keyword Config Master contains predefined keywords used to classify emails.
+
+If an email's subject or content matches any stored keyword, it is classified as relevant.
+
+To prevent duplication, classified emails are stored in the classified_emails table with a unique identifier.
+
+Step 2: Ticket Creation
+
+Once an email is classified, a support ticket is generated automatically.
+
+The system assigns ticket attributes based on classification parameters, such as activity type and priority.
+
+The generated tickets are stored in the tickets table, ensuring each ticket has a unique reference.
+
+If an email with the same content has already been classified, the system avoids creating duplicate tickets.
+
+Step 3: Ticket Management
+
+The Tickets Module (tickets.php) provides a user-friendly interface to view, edit, and delete tickets.
+
+Tickets are displayed in a structured table format with pagination and filtering options.
+
+Users can manually adjust ticket attributes, including priority levels (low, medium, high).
+
+AJAX is used for real-time updates, ensuring a smooth user experience.
+
+Database Structure
+
+tickets Table
+
+Column
+
+Type
+
+Description
+
+ticket_oid
+
+INT (PK)
+
+Unique identifier for the ticket
+
+message_oid
+
+INT (Nullable)
+
+Related message ID from the email system
+
+activity_oid
+
+INT (Nullable)
+
+Stores Level 1 (Assign Attribute)
+
+activity_type_oid
+
+INT (Nullable)
+
+Stores Level 0 (Activity Type)
+
+activity_value_oid
+
+INT (Nullable)
+
+Stores Level 0 (Attribute Value)
+
+business_unit_oid
+
+INT (Nullable)
+
+Business unit reference for ticket tracking
+
+priority_oid
+
+INT (Nullable)
+
+Defines ticket urgency (low, medium, high)
+
+title
+
+VARCHAR(255)
+
+Subject line of the classified email
+
+classified_emails Table
+
+Column
+
+Type
+
+Description
+
+id
+
+INT (PK)
+
+Unique email record ID
+
+uid
+
+INT (Not Null)
+
+Unique email identifier
+
+subject
+
+VARCHAR(255)
+
+Subject of the classified email
+
+date_received
+
+DATETIME
+
+Timestamp of email reception
+
+from_email
+
+VARCHAR(255)
+
+Sender email address
+
+to_email
+
+TEXT
+
+List of recipient email addresses
+
+cc_email
+
+TEXT
+
+List of CC'd email addresses
+
+created_at
+
+TIMESTAMP
+
+Classification timestamp
+
+Key Functionalities
+
+Automated Ticket Generation: The system generates tickets automatically upon classifying relevant emails.
+
+Duplicate Prevention Mechanism: Ensures that emails already classified do not create duplicate tickets.
+
+Seamless UI with AJAX: Real-time updates and improved responsiveness using AJAX.
+
+DataTables Integration: Provides powerful search, sorting, and pagination features.
+
+Customizable Priority Management: Allows users to set and update ticket urgency levels.
+
+Security and Access Control (Future Scope): Plans to implement user authentication and role-based permissions.
+
+Technologies Used
+
+Backend: PHP (for handling database operations and business logic)
+
+Frontend: HTML, CSS, JavaScript, AJAX (for dynamic UI updates)
+
+Database: MySQL (for structured data storage and retrieval)
+
+Libraries & Tools: PHPMailer (for email communication), IMAP (for email retrieval), DataTables (for enhanced UI interactions)
+
+Installation and Setup
+
+Clone the repository:
+
+git clone https://github.com/Praveenshree/Ticket-Creation-Through-Email
+cd Ticket-Creation-Through-Email
+
+
+Import the database schema into MySQL:
+
+Locate database.sql in the project folder.
+
+Use a MySQL client or command line to import the schema.
+
+Configure email settings:
+
+Open email_config.php.
+
+Update the IMAP and SMTP configurations with your email server credentials.
+
+Run the project on a local server:
+
+Use XAMPP Server
+
+Open index.php in your browser.
+
+Future Enhancements
+
+Email Threading Support: Linking follow-up emails to existing tickets.
+
+User Authentication: Adding login and user role management.
+
+Advanced Analytics Dashboard: Generating insights on ticket trends and resolution times.
+
+Integration with External Ticketing Systems: Syncing tickets with third-party tools like Zendesk or Jira.
+cd ticket-creation-email
+
+Import the database schema into MySQL:
+
+Locate database.sql in the project folder.
+
+Use a MySQL client or command line to import the schema.
+
+Configure email settings:
+
+Open email_config.php.
+
+Update the IMAP and SMTP configurations with your email server credentials.
+
+Run the project on a local server:
+
+Use XAMPP, WAMP, or any preferred local PHP server.
+
+Open index.php in your browser.
+
+Future Enhancements
+
+Email Threading Support: Linking follow-up emails to existing tickets.
+
+User Authentication: Adding login and user role management.
+
+Advanced Analytics Dashboard: Generating insights on ticket trends and resolution times.
+
+Integration with External Ticketing Systems: Syncing tickets with third-party tools like Zendesk or Jira.
